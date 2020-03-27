@@ -1,5 +1,6 @@
 package com.hnq.toolkit.util;
 
+import com.hnq.toolkit.tool.SnowflakeKeyGenerator;
 import org.junit.jupiter.api.Test;
 
 /**

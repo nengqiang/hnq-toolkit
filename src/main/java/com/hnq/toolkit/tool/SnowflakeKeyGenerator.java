@@ -1,4 +1,4 @@
-package com.hnq.toolkit.util;
+package com.hnq.toolkit.tool;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

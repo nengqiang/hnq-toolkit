@@ -138,7 +138,7 @@ public class BeanUtils {
     }
 
     /**
-     * 基于 CGLIB 的 bean properties 的拷`贝，性能要远优于{@code org.springframework.beans.BeanUtils.copyProperties}
+     * 基于 CGLIB 的 bean properties 的拷贝，性能要远优于{@code org.springframework.beans.BeanUtils.copyProperties}
      *
      * @param source    包含数据的原始对象
      * @param target    被塞入数据的目标对象
