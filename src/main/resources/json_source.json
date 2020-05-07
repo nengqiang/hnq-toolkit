@@ -1,0 +1,11 @@
+{
+  "json": "json",
+  "totalCount": 1,
+  "offset": 10,
+  "postList": [
+    {
+      "a": 1,
+      "b": 2
+    }
+  ]
+}

@@ -2,6 +2,7 @@ package com.hnq.toolkit.util;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 
 import static com.hnq.toolkit.util.FileUtils.countFileRows;
@@ -12,11 +13,14 @@ import static com.hnq.toolkit.util.FileUtils.countFileRows;
  */
 class FileUtilsTest {
 
+    private static final String S = File.separator;
+
+    private static final String FILE_PATH = ("src" + S + "main" + S + "java" + S + "com" + S + "hnq" + S + "toolkit" + S + "util" + S + "FileUtils.java");
+
     @Test
     void countFileRowsTest() {
         try {
-            String filePath = ("/Users/hanif/studyProjects/test/common/src/main/java/com/hnq/test/util/FileUtils.java");
-            Long rows = countFileRows(filePath);
+            Long rows = countFileRows(FILE_PATH);
             System.out.println(rows);
         } catch (IOException e) {
             e.printStackTrace();
@@ -26,8 +30,7 @@ class FileUtilsTest {
     @Test
     void readFileOfLinesTest() {
         try {
-            String filePath = "/Users/hanif/studyProjects/test/crawler/src/main/resources/toutiao/userIds.csv";
-            String data = FileUtils.readFileOfLines(filePath, 2, 5);
+            String data = FileUtils.readFileOfLines(FILE_PATH, 2, 100);
             System.out.println(data);
             System.out.println(data.replaceAll("\n", ""));
         } catch (IOException e) {

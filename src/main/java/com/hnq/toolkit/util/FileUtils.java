@@ -1,11 +1,10 @@
 package com.hnq.toolkit.util;
 
-import org.apache.commons.codec.binary.Base64;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 
@@ -58,7 +57,7 @@ public class FileUtils {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(bi, "jpg", baos);
             byte[] bytes = baos.toByteArray();
-            return Base64.encodeBase64String(bytes);
+            return Arrays.toString(Base64.getEncoder().encode(bytes));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,7 +73,7 @@ public class FileUtils {
      */
     public static void saveImage(String base64String) {
         try {
-            byte[] bytes1 = Base64.decodeBase64(base64String);
+            byte[] bytes1 = Base64.getDecoder().decode(base64String);
             ByteArrayInputStream bais = new ByteArrayInputStream(bytes1);
             BufferedImage bi1 = ImageIO.read(bais);
             // 可以是jpg,png,gif格式

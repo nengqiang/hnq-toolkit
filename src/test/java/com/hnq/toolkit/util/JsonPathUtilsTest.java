@@ -18,12 +18,10 @@ import org.apache.commons.io.FileUtils;
  */
 class JsonPathUtilsTest {
 
-    private String filePath = "/Users/hanif/studyProjects/test/common/src/main/resources/temp.json";
-
     private File file;
 
     private void init() {
-        file = new File(filePath);
+        file = new File(com.hnq.toolkit.util.FileUtils.getResourceFilePath(this.getClass(), "json_source.json"));
     }
 
     @Test

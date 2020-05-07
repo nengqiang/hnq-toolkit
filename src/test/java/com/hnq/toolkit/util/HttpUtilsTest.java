@@ -57,7 +57,7 @@ class HttpUtilsTest {
     }
 
     private void writeResponseToTempHtml(String response) {
-        File file = new File(FileUtils.getResourceFilePath(this.getClass(), "temp.html"));
+        File file = new File(FileUtils.getResourceFilePath(this.getClass(), "res.html"));
         try {
             org.apache.commons.io.FileUtils.writeStringToFile(file, response, StandardCharsets.UTF_8);
         } catch (IOException e) {
