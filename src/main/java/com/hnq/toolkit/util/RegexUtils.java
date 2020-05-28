@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
  */
 public class RegexUtils {
 
-    private static GuavaCache<String, Pattern> CACHE = GuavaCache.getInstance(10, TimeUnit.MINUTES, 100);
+    private static GuavaCache<String, Pattern> cache = GuavaCache.getInstance(10, TimeUnit.MINUTES, 100);
 
     private RegexUtils() {}
 
@@ -45,7 +45,7 @@ public class RegexUtils {
      * match flags are set in <tt>flags</tt>
      */
     public static Pattern compile(@Nonnull String regex, int flags) {
-        return CACHE.getUnchecked(regex + "_" + flags, () -> Pattern.compile(regex, flags));
+        return cache.getUnchecked(regex + "_" + flags, () -> Pattern.compile(regex, flags));
     }
 
     public static Matcher getMatcher(@Nonnull String regex, @Nonnull String str) {

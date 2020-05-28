@@ -1,5 +1,6 @@
 package com.hnq.toolkit.util;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.hnq.toolkit.util.http.HttpService;
@@ -39,6 +40,8 @@ import java.util.UUID;
  */
 @Slf4j
 public class HttpUtils {
+
+    private HttpUtils() {}
     
     private static final String UNKNOWN = "unknown";
 
@@ -48,7 +51,7 @@ public class HttpUtils {
             String url = "http://wiseproxy.saas.treefinance.com.cn/wiseproxy/service/getProxy?site=123";
             String resultStr = HttpService.get(url);
             log.debug("proxyStr=" + resultStr);
-            JSONObject obj = JSONObject.parseObject(resultStr);
+            JSONObject obj = JSON.parseObject(resultStr);
             result = obj.getString("proxy");
         } catch (Exception e) {
             log.error("error to get proxy.", e);

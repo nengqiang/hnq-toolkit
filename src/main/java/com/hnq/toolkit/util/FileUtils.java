@@ -1,29 +1,89 @@
 package com.hnq.toolkit.util;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author henengqiang
  * @date 2018/10/15
  */
+@Slf4j
 public class FileUtils {
+    
+    private FileUtils() {}
 
     /**
      * 获取的文件全路径形为：
      * /Users/hanif/studyProjects/test/words-game/target/classes/temp.json
      * 【注意这个方法获取到的资源文件路径是在target目录下】
      */
-    public static String getResourceFilePath(Class clazz, String fileName) {
+    public static String getResourceFilePath(Class<?> clazz, String fileName) {
         return clazz.getResource("/" + fileName).getPath();
     }
 
-    public static void getAllFileName(String path, List<String> listFileName) {
+    /**
+     * like {@link FileUtils#getResourceFilePath(Class, String)}
+     */
+    public static String getResourceFilePath(String fileName) {
+        return getResourceFileUrl(fileName).getPath();
+    }
+
+    /**
+     * 根据 resources 目录下文件名称返回文件 URL
+     *
+     * @param fileName  文件名称，如果在resources目录的子目录下，需要包含子目录名称
+     * @return          {@link URL}
+     */
+    public static URL getResourceFileUrl(String fileName) {
+        return Thread.currentThread().getContextClassLoader().getResource(fileName);
+    }
+
+    /**
+     * 根据 resources 目录下文件名称返回文件输入流
+     *
+     * @param fileName  文件名称，如果在resources目录的子目录下，需要包含子目录名称
+     * @return          {@link java.io.BufferedInputStream}
+     * @see              org.apache.commons.io.FileUtils#readFileToString(File, Charset)
+     */
+    public static InputStream getResourceFileStream(String fileName) {
+        return Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
+    }
+
+    /**
+     * 根据 resources 目录下文件名称读取文件内容
+     * 自己重写一个方法免得每次读取 resources 目录下的文件都要使用两个工具类里的方法
+     *
+     * @param fileName      文件名称，如果在resources目录的子目录下，需要包含子目录名称
+     * @param encoding      文件编码
+     * @return              文件内容
+     * @throws IOException  throws {@link IOException}
+     */
+    public static String readResourceFileToString(String fileName, Charset encoding) throws IOException {
+        return org.apache.commons.io.FileUtils.readFileToString(
+                new File(getResourceFilePath(fileName)), encoding);
+    }
+
+    public static byte[] readResourceFileToByteArray(String fileName) throws IOException {
+        return org.apache.commons.io.FileUtils.readFileToByteArray(
+                new File(getResourceFilePath(fileName)));
+    }
+
+    public static void listAllFileNames(String path, List<String> listFileNames) {
         File file = new File(path);
         File[] files = file.listFiles();
         String[] names = file.list();
@@ -32,56 +92,12 @@ public class FileUtils {
             for (int i = 0; i < names.length; i++) {
                 completeNames[i] = path + names[i];
             }
-            listFileName.addAll(Arrays.asList(completeNames));
+            listFileNames.addAll(Arrays.asList(completeNames));
         }
         for (File f : Objects.requireNonNull(files)) {
             if (f.isDirectory()) {
-                getAllFileName(f.getAbsolutePath() + File.separator, listFileName);
+                listAllFileNames(f.getAbsolutePath() + File.separator, listFileNames);
             }
-        }
-    }
-
-    /**
-     * 图片转换为二进制
-     *
-     * @param fileName
-     *            本地图片路径
-     * @return
-     *       图片二进制流
-     * */
-    public static String getImageBinary(String fileName) {
-        File f = new File(fileName);
-        BufferedImage bi;
-        try {
-            bi = ImageIO.read(f);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(bi, "jpg", baos);
-            byte[] bytes = baos.toByteArray();
-            return Arrays.toString(Base64.getEncoder().encode(bytes));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * 将二进制转换为图片
-     *
-     * @param base64String
-     *            图片二进制流
-     * // TODO: 2019-07-08 henengqiang 待改
-     */
-    public static void saveImage(String base64String) {
-        try {
-            byte[] bytes1 = Base64.getDecoder().decode(base64String);
-            ByteArrayInputStream bais = new ByteArrayInputStream(bytes1);
-            BufferedImage bi1 = ImageIO.read(bais);
-            // 可以是jpg,png,gif格式
-            File w2 = new File("D://code//22.jpg");
-            // 不管输出什么格式图片，此处不需改动
-            ImageIO.write(bi1, "jpg", w2);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -90,123 +106,106 @@ public class FileUtils {
      * 不知道怎么加编码 后面再更新
      */
     public static void writeObjectToFile(File file, Object obj) {
-        FileOutputStream fos = null;
-        ObjectOutputStream oos = null;
-        try {
-            fos = new FileOutputStream(file);
-            oos = new ObjectOutputStream(fos);
-            oos.writeObject(obj);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (oos != null) {
-                    oos.close();
-                }
-                if (fos != null) {
-                    fos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+        try (FileOutputStream fos = new FileOutputStream(file)) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+                oos.writeObject(obj);
             }
+        } catch (IOException e) {
+            log.error("error:", e);
         }
     }
 
     /**
      * 读取文件内容为对象
+     *
      * @param file 文件路径及其名称
      * @return     报异常时返回null
+     * @see         org.apache.commons.io.FileUtils#readFileToByteArray(File)
      */
     public static Object readFileToObject(File file) {
-        FileInputStream fis = null;
-        ObjectInputStream ois = null;
-        try {
-            fis = new FileInputStream(file);
-            ois = new ObjectInputStream(fis);
+        try (FileInputStream fis = new FileInputStream(file);
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
             return ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (ois != null) {
-                    ois.close();
-                }
-                if (fis != null) {
-                    fis.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            log.error("error:", e);
         }
         return null;
     }
 
     /**
-     * 计算文件行数
+     * 计算文件行数(多为内容以行为单位的文件)
      *
-     * @param filePath  file path and itself
-     * @throws IOException
+     * @param filePath      file path and itself
+     * @throws IOException  throws {@link IOException}
      */
     public static Long countFileRows(String filePath) throws IOException {
         FileReader read = new FileReader(filePath);
-        BufferedReader br = new BufferedReader(read);
-        long rowNum = 1L;
-        while ((br.readLine()) != null) {
-            rowNum++;
+        long rowNum;
+        try (BufferedReader br = new BufferedReader(read)) {
+            rowNum = 1L;
+            while ((br.readLine()) != null) {
+                rowNum++;
+            }
         }
         return rowNum;
     }
 
     /**
-     * 读取文件指定多少行
-     * @param filePath
-     * @param startLine
-     * @param endLine
-     * @return
-     * @throws IOException
+     * 读取文件指定多少行(多为内容以行为单位的文件)
+     *
+     * @param filePath      文件路径
+     * @param startLine     开始行数
+     * @param endLine       结束行数
+     * @return              返回读取的文件内容
+     * @throws IOException  throws {@link IOException}
+     * @see                 org.apache.commons.io.FileUtils#readLines(File, Charset)
      */
     public static String readFileOfLines(String filePath, int startLine, int endLine) throws IOException {
         FileReader read = new FileReader(filePath);
-        BufferedReader br = new BufferedReader(read);
-        StringBuilder sb = new StringBuilder();
-        long rowNum = 1L;
-        String a;
-        while ((a = br.readLine()) != null) {
-            if (rowNum++ >= startLine) {
-                sb.append(a).append("\n");
-            }
-            if (rowNum > endLine) {
-                break;
+        StringBuilder sb;
+        try (BufferedReader br = new BufferedReader(read)) {
+            sb = new StringBuilder();
+            long rowNum = 1L;
+            String a;
+            while ((a = br.readLine()) != null) {
+                if (rowNum++ >= startLine) {
+                    sb.append(a).append("\n");
+                }
+                if (rowNum > endLine) {
+                    break;
+                }
             }
         }
         return sb.toString();
     }
 
     /**
-     * 把一个文件拆分为多个文件(按行拆)
+     * 把一个文件(目前支持CSV)拆分为多个文件(按行拆)
      *
      * @param filePath          源文件
      * @param targetFilePath    目标文件目录及其名称（不含后缀）
      * @param targetFileSuffix  目标文件后缀（不含"."）
      * @param targetFileRowNum  目标文件数据行数
-     * @throws IOException
+     * @throws IOException      throws {@link IOException}
      */
     public static void breakFile(String filePath, String targetFilePath, String targetFileSuffix, int targetFileRowNum)
             throws IOException {
         FileReader read = new FileReader(filePath);
-        BufferedReader br = new BufferedReader(read);
-        String row;
-        int rowNum = 0;
-        int fileNo = 1;
-        FileWriter fw = new FileWriter(targetFilePath + fileNo + "." + targetFileSuffix);
-        while ((row = br.readLine()) != null) {
-            rowNum++;
-            fw.append(row).append("\r\n");
-            if (rowNum >= targetFileRowNum) {
-                fw.close();
-                rowNum = 0;
-                fileNo++;
-                fw = new FileWriter(targetFilePath + fileNo + "." + targetFileSuffix);
+        FileWriter fw;
+        try (BufferedReader br = new BufferedReader(read)) {
+            String row;
+            int rowNum = 0;
+            int fileNo = 1;
+            fw = new FileWriter(targetFilePath + fileNo + "." + targetFileSuffix);
+            while ((row = br.readLine()) != null) {
+                rowNum++;
+                fw.append(row).append("\r\n");
+                if (rowNum >= targetFileRowNum) {
+                    fw.close();
+                    rowNum = 0;
+                    fileNo++;
+                    fw = new FileWriter(targetFilePath + fileNo + "." + targetFileSuffix);
+                }
             }
         }
         fw.close();

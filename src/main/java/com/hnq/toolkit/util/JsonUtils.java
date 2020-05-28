@@ -1,19 +1,21 @@
 package com.hnq.toolkit.util;
 
 import com.alibaba.fastjson.JSONReader;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
-import java.nio.charset.Charset;
-import org.apache.commons.io.FileUtils;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author henengqiang
  * @date 2019/04/04
  */
 public class JsonUtils {
+
+    private JsonUtils() {}
 
     /**
      * 将一份jsonList文件拆分为多份jsonList文件
@@ -24,7 +26,7 @@ public class JsonUtils {
      */
     public static void splitJsonFile(String inFilePath, String outFilePath, int objNumOfOneFile) throws IOException {
         String outFilePathPrefix = outFilePath.split("\\.")[0];
-        String dataStr = FileUtils.readFileToString(new File(inFilePath),"UTF-8");
+        String dataStr = FileUtils.readFileToString(new File(inFilePath), StandardCharsets.UTF_8);
         JSONReader reader = new JSONReader(new StringReader(dataStr));
         reader.startArray();
         int objNum = 0;
@@ -50,7 +52,7 @@ public class JsonUtils {
                 tempData.deleteCharAt(tempData.length() - 1).append("]");
                 System.out.println("写出第" + fileNum + "份json文件");
                 String dealOutputFilePath = outFilePathPrefix + fileNum + ".json";
-                FileUtils.writeStringToFile(new File(dealOutputFilePath), tempData.toString(), Charset.forName("UTF-8"));
+                FileUtils.writeStringToFile(new File(dealOutputFilePath), tempData.toString(), StandardCharsets.UTF_8);
                 tempData.delete(0, tempData.length()).append("[");
             }
         }
@@ -59,7 +61,7 @@ public class JsonUtils {
             tempData.deleteCharAt(tempData.length() - 1).append("]");
             System.out.println("写出第" + (fileNum + 1) + "份json文件");
             String dealOutputFilePath = outFilePathPrefix + (fileNum + 1) + ".json";
-            FileUtils.writeStringToFile(new File(dealOutputFilePath), tempData.toString(), Charset.forName("UTF-8"));
+            FileUtils.writeStringToFile(new File(dealOutputFilePath), tempData.toString(), StandardCharsets.UTF_8);
         }
         reader.endArray();
     }

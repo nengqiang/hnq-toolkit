@@ -23,9 +23,13 @@ import java.util.List;
 public class DateUtils {
 
     private DateUtils() {}
+    
+    private static final String DEFAULT_PATTERN = "yyyy-MM-dd HH:mm:ss";
+    
+    private static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd";
 
     public static String defaultPattern(@Nullable String pattern) {
-        return pattern == null ? "yyyy-MM-dd HH:mm:ss" : pattern;
+        return pattern == null ? DEFAULT_PATTERN : pattern;
     }
 
     public static LocalDateTime toLocalDateTime(@Nonnull Date date) {
@@ -97,7 +101,7 @@ public class DateUtils {
     }
 
     public static String formatDate(@Nullable Date date) {
-        return format(date, "yyyy-MM-dd");
+        return format(date, DEFAULT_DATE_PATTERN);
     }
 
     public static String formatTime(@Nullable Date date) {
@@ -117,7 +121,7 @@ public class DateUtils {
     }
 
     public static Date parse(@Nonnull String dateStr) {
-        return parse(dateStr, (String)null);
+        return parse(dateStr, null);
     }
 
     public static Date parse(@Nullable String dateStr, @Nullable String pattern) {
@@ -125,7 +129,7 @@ public class DateUtils {
     }
 
     public static Date parseDate(@Nonnull String dateStr) {
-        return parse(dateStr, "yyyy-MM-dd");
+        return parse(dateStr, DEFAULT_DATE_PATTERN);
     }
 
     public static Date parseLocal(@Nullable String dateStr, @Nullable String pattern) {
@@ -305,7 +309,7 @@ public class DateUtils {
     }
 
     public static String getYesterdayString() {
-        return nowDate().minusDays(1).toString("yyyy-MM-dd");
+        return nowDate().minusDays(1).toString(DEFAULT_DATE_PATTERN);
     }
 
     public static Date getTomorrow() {
@@ -313,7 +317,7 @@ public class DateUtils {
     }
 
     public static String getTomorrowString() {
-        return nowDate().plusDays(1).toString("yyyy-MM-dd");
+        return nowDate().plusDays(1).toString(DEFAULT_DATE_PATTERN);
     }
 
     public static Date getFirstDayOfMonth(@Nonnull Date date) {
@@ -525,11 +529,11 @@ public class DateUtils {
     }
 
     public static String yesterdayString() {
-        return withYesterday().toString("yyyy-MM-dd HH:mm:ss");
+        return withYesterday().toString(DEFAULT_PATTERN);
     }
 
     public static String yesterdayString(@Nonnull Date date) {
-        return withYesterday(date).toString("yyyy-MM-dd HH:mm:ss");
+        return withYesterday(date).toString(DEFAULT_PATTERN);
     }
 
     public static Date tomorrow() {
@@ -541,11 +545,11 @@ public class DateUtils {
     }
 
     public static String tomorrowString() {
-        return withTomorrow().toString("yyyy-MM-dd HH:mm:ss");
+        return withTomorrow().toString(DEFAULT_PATTERN);
     }
 
     public static String tomorrowString(@Nonnull Date date) {
-        return withTomorrow(date).toString("yyyy-MM-dd HH:mm:ss");
+        return withTomorrow(date).toString(DEFAULT_PATTERN);
     }
 
     private static Date withStartTime(@Nonnull LocalDateTime dateTime) {
@@ -563,7 +567,7 @@ public class DateUtils {
         if (start.isAfter(end)) {
             throw new IllegalArgumentException("StartDate must be less than or equal to endDate!");
         } else {
-            ArrayList list = new ArrayList();
+            List<Date> list = new ArrayList<>();
 
             do {
                 list.add(start.toDate());
@@ -581,10 +585,10 @@ public class DateUtils {
         if (start.isAfter(end)) {
             throw new IllegalArgumentException("StartDate must be less than or equal to endDate!");
         } else {
-            ArrayList list = new ArrayList();
+            List<String> list = new ArrayList<>();
 
             do {
-                list.add(start.toString("yyyy-MM-dd"));
+                list.add(start.toString(DEFAULT_DATE_PATTERN));
                 start = start.plusDays(1);
             } while(start.isBefore(end));
 
@@ -599,7 +603,7 @@ public class DateUtils {
         if (start.isAfter(end)) {
             throw new IllegalArgumentException("StartDate must be less than or equal to endDate!");
         } else {
-            ArrayList list = new ArrayList();
+            List<Date> list = new ArrayList<>();
 
             do {
                 list.add(start.toDate());
@@ -617,10 +621,10 @@ public class DateUtils {
         if (start.isAfter(end)) {
             throw new IllegalArgumentException("StartDate must be less than or equal to endDate!");
         } else {
-            ArrayList list = new ArrayList();
+            List<String> list = new ArrayList<>();
 
             do {
-                list.add(start.toString("yyyy-MM-dd"));
+                list.add(start.toString(DEFAULT_DATE_PATTERN));
                 start = start.plusDays(1);
             } while(!start.isAfter(end));
 

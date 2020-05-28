@@ -2,6 +2,7 @@ package com.hnq.toolkit.util;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.cglib.beans.BeanCopier;
 
@@ -19,7 +20,10 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author henengqiang
  * @date 2019/04/23
  */
+@Slf4j
 public class BeanUtils {
+
+    private BeanUtils() {}
 
     private static final Map<String, BeanCopier> BEAN_COPIER_MAP = new ConcurrentHashMap<>();
 
@@ -97,10 +101,7 @@ public class BeanUtils {
                     // 在newObject上调用get方法等同于获得newObject的属性值
                     Object newValue = readMethod.invoke(newObj);
 
-                    if (oldValue instanceof List) {
-                        continue;
-                    }
-                    if (newValue instanceof List) {
+                    if (oldValue instanceof List || newValue instanceof List) {
                         continue;
                     }
 
@@ -132,7 +133,7 @@ public class BeanUtils {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Exception in comparison:", e);
         }
         return map;
     }

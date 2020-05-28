@@ -6,6 +6,8 @@ package com.hnq.toolkit.util;
  */
 public class MathUtils {
 
+    private MathUtils() {}
+
     /**
      * 高效率的幂运算
      *

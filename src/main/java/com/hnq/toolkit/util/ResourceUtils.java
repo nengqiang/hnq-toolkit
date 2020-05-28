@@ -14,7 +14,7 @@ public class ResourceUtils {
 
     private ResourceUtils() {}
 
-    public static URL getResource(String resource, Class clazz) {
+    public static URL getResource(String resource, Class<?> clazz) {
         if (clazz == null) {
             clazz = ResourceUtils.class;
         }
@@ -47,7 +47,7 @@ public class ResourceUtils {
         return getStringRes(url);
     }
 
-    public static String getContent(String resource, Class clazz) {
+    public static String getContent(String resource, Class<?> clazz) {
         URL url = getResource(resource, clazz);
         return getStringRes(url);
     }
