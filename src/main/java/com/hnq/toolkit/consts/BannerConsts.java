@@ -1,9 +1,9 @@
 package com.hnq.toolkit.consts;
 
 import com.google.common.collect.Maps;
-import com.hnq.toolkit.util.RegexUtils;
-import com.hnq.toolkit.util.StrUtils;
-import com.hnq.toolkit.util.http.HttpService;
+import com.hnq.toolkit.parse.RegexUtils;
+import com.hnq.toolkit.text.StrUtils;
+import com.hnq.toolkit.http.HttpService;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
