@@ -1,6 +1,5 @@
 package com.hnq.toolkit.lang;
 
-import com.hnq.toolkit.lang.Snowflake;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -9,7 +8,7 @@ import org.junit.jupiter.api.Test;
  */
 class SnowflakeTest {
 
-    private static Snowflake generator = new Snowflake();
+    private static final Snowflake generator = new Snowflake();
 
     @Test
     void generateKey() {

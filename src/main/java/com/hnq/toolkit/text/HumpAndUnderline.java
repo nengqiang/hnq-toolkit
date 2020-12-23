@@ -45,8 +45,8 @@ public class HumpAndUnderline {
     }
 
     /**
-     * covert field name to column name
-     * */
+     * 下划线转驼峰
+     */
     public static String getHumpName(String fieldName) {
         if (null == fieldName) {
             return "";

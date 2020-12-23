@@ -258,7 +258,7 @@ public class SortUtils {
 
     // ------------------------------ ------------------------------ //
 
-    private static Random r = new Random();
+    private static final Random r = new Random();
 
     /**
      * 生成随机数组（可能重复）
@@ -360,7 +360,7 @@ public class SortUtils {
     }
 
     private static class MapKeyComparator implements Comparator<String> {
-        private boolean isAsc;
+        private final boolean isAsc;
 
         MapKeyComparator(boolean isAsc) {
             this.isAsc = isAsc;
@@ -386,7 +386,7 @@ public class SortUtils {
         // LinkedHashMap可以通过构造方法指定是按放入的顺序，还是get顺序 排序
         Map<K, V> result = Maps.newLinkedHashMap();
         Stream<Map.Entry<K, V>> st = map.entrySet().stream();
-        st.sorted(Comparator.comparing(Map.Entry::getValue)).forEach(e -> result.put(e.getKey(), e.getValue()));
+        st.sorted(Map.Entry.comparingByValue()).forEach(e -> result.put(e.getKey(), e.getValue()));
         return result;
     }
 

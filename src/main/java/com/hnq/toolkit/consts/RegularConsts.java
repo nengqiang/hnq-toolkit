@@ -9,7 +9,9 @@ import java.util.regex.Pattern;
  * @author henengqiang
  * @date 2019/06/24
  */
-public class RegularConsts {
+public final class RegularConsts {
+
+    private RegularConsts() {}
 
     /**
      * 验证用户名和密码：（"^[a-zA-Z]\w{5,15}$"）正确格式："[A-Z][a-z]_[0-9]"组成,并且第一个字必须为字母6~16位

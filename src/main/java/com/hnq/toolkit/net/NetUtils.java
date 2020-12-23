@@ -1,6 +1,7 @@
 package com.hnq.toolkit.net;
 
 import com.hnq.toolkit.cache.LRUCache;
+import com.hnq.toolkit.consts.CharConsts;
 import com.hnq.toolkit.exception.InetConnectException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +32,7 @@ public class NetUtils {
     private static final Map<String, String> HOST_NAME_CACHE = new LRUCache<>(1000);
     private static final Pattern IP_PATTERN = Pattern.compile("\\d{1,3}(\\.\\d{1,3}){3,5}$");
     private static final Pattern ADDRESS_PATTERN = Pattern
-            .compile("^\\d{1,3}(\\.\\d{1,3}){3}\\:\\d{1,5}$");
+            .compile("^\\d{1,3}(\\.\\d{1,3}){3}:\\d{1,5}$");
     private static final Pattern LOCAL_IP_PATTERN = Pattern.compile("127(\\.\\d{1,3}){3}$");
     private static volatile InetAddress LOCAL_ADDRESS = null;
 
@@ -140,13 +141,13 @@ public class NetUtils {
         if (host == null || host.length() == 0) {
             return host;
         }
-        if (host.contains("://")) {
+        if (host.contains(CharConsts.COLON + CharConsts.DOUBLE_SLASH)) {
             URL u = URL.valueOf(host);
             if (NetUtils.isInvalidLocalHost(u.getHost())) {
                 return u.setHost(NetUtils.getLocalHost()).toFullString();
             }
-        } else if (host.contains(":")) {
-            int i = host.lastIndexOf(':');
+        } else if (host.contains(String.valueOf(CharConsts.COLON))) {
+            int i = host.lastIndexOf(CharConsts.COLON);
             if (NetUtils.isInvalidLocalHost(host.substring(0, i))) {
                 return NetUtils.getLocalHost() + host.substring(i);
             }
@@ -269,10 +270,10 @@ public class NetUtils {
 
     public static String toURL(String protocol, String host, int port, String path) {
         StringBuilder sb = new StringBuilder();
-        sb.append(protocol).append("://");
-        sb.append(host).append(':').append(port);
-        if (path.charAt(0) != '/') {
-            sb.append('/');
+        sb.append(protocol).append(CharConsts.COLON).append(CharConsts.DOUBLE_SLASH);
+        sb.append(host).append(CharConsts.COLON).append(port);
+        if (path.charAt(0) != CharConsts.SLASH) {
+            sb.append(CharConsts.SLASH);
         }
         sb.append(path);
         return sb.toString();

@@ -19,7 +19,7 @@ public class ObjectPoolFactory {
     private ObjectPoolFactory() {
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public static <T> GenericObjectPool<T> createObjectPool(@Nonnull final Class<T> clazz, final GenericObjectPoolConfig config) {
         return new GenericObjectPool<>(new BasePooledObjectFactory<T>() {
             @Override

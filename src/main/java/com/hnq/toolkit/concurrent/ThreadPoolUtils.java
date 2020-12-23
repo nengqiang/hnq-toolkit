@@ -38,7 +38,7 @@ public class ThreadPoolUtils {
     /**
      * namedThreadFactory
      */
-    private static ThreadFactory namedThreadFactory = new ThreadFactoryBuilder().setNameFormat("hanif-pool-%d").build();
+    private static final ThreadFactory NAMED_THREAD_FACTORY = new ThreadFactoryBuilder().setNameFormat("hanif-pool-%d").build();
 
     /**
      * 无返回值直接执行
@@ -78,7 +78,7 @@ public class ThreadPoolUtils {
                             KEEP_ALIVE,
                             TimeUnit.SECONDS,
                             new LinkedBlockingQueue<>(32),
-                            namedThreadFactory,
+                            NAMED_THREAD_FACTORY,
                             new ThreadPoolExecutor.CallerRunsPolicy()
                     );
                 }

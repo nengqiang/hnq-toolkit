@@ -18,6 +18,8 @@ public class ArrUtils {
 
     /**
      * 根据对象属性对list去重
+     * 使用举例：persons.stream().filter(distinctByKey(Person::getName))
+     *
      * @param list          要去重的list
      * @param keyExtractor  去重依据的对象的字段
      * @param <T>           对象泛型
@@ -29,7 +31,6 @@ public class ArrUtils {
 
     /**
      * 根据对象属性去重
-     * 使用举例：persons.stream().filter(distinctByKey(Person::getName))
      *
      * @param keyExtractor  对象的字段
      * @param <T>           对象泛型

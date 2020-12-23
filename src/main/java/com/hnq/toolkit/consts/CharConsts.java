@@ -6,7 +6,7 @@ package com.hnq.toolkit.consts;
  */
 public final class CharConsts {
 
-    private CharConsts() { }
+    private CharConsts() {}
 
     public static final char LOWER_A = 'a';
 
@@ -15,5 +15,12 @@ public final class CharConsts {
     public static final char LOWER_Z = 'z';
 
     public static final char UPPER_Z = 'Z';
+
+    public static final char COLON = ':';
+
+    public static final char SLASH = '/';
+
+    public static final String DOUBLE_SLASH = "//";
+
 
 }

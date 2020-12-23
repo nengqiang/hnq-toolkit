@@ -3,8 +3,6 @@ package com.hnq.toolkit.math;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.hnq.toolkit.math.MathUtils;
-
 /**
  * @author henengqiang
  * @date 2019/09/06

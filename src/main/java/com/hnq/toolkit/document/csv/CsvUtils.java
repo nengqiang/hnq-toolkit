@@ -1,4 +1,4 @@
-package com.hnq.toolkit.text;
+package com.hnq.toolkit.document.csv;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
@@ -17,9 +17,10 @@ public class CsvUtils {
 
     /**
      * csv -> jsonArrayStr
+     *
      * @param filePath      file path and itself
      * @return              jsonArrayStr
-     * @throws IOException  {@link IOException}
+     * @throws IOException  throws {@link IOException}
      */
     public static String getJsonFromCsvFile(String filePath) throws IOException {
         File input = new File(filePath);
@@ -37,9 +38,10 @@ public class CsvUtils {
 
     /**
      * 把csv文件里的信息写出到json文件
+     *
      * @param inputPath     file path and itself
      * @param outPutPath    file path and itself
-     * @throws IOException  {@link IOException}
+     * @throws IOException  throws {@link IOException}
      */
     public static void writeJsonFromCsvFile(String inputPath, String outPutPath) throws IOException {
         File input = new File(inputPath);
