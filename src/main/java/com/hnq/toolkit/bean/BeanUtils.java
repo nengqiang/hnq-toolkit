@@ -82,6 +82,7 @@ public class BeanUtils {
      * @param newObj 进行属性比较的对象2
      * @return       属性差异比较结果map
      */
+    @SuppressWarnings("rawtypes")
     public static Map<String, Map<String, Object>> compareFields(Object oldObj, Object newObj) {
         Map<String, Map<String, Object>> map = Maps.newHashMap();
         try {

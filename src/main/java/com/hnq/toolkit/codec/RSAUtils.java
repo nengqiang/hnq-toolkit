@@ -1,5 +1,8 @@
 package com.hnq.toolkit.codec;
 
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.util.encoders.Hex;
+
 import javax.crypto.Cipher;
 import java.io.ByteArrayOutputStream;
 import java.security.*;
@@ -53,6 +56,10 @@ public class RSAUtils {
      * 密钥长度必须是64的倍数，范围在512~65536位之间
      */
     private static final int KEY_SIZE = 1024;
+
+    static {
+        Security.addProvider(new BouncyCastleProvider());
+    }
 
     /**
      * 公钥加密
@@ -134,8 +141,8 @@ public class RSAUtils {
      * @param keyMap    密钥Map
      * @return          key 公钥
      */
-    public static Key getPublicKey(Map<String, Key> keyMap) {
-        return keyMap.get(RSA_PUBLIC_KEY);
+    public static String getPublicKey(Map<String, Key> keyMap) {
+        return Hex.toHexString(getPublicKeyByte(keyMap)).toUpperCase();
     }
 
     /**
@@ -154,8 +161,8 @@ public class RSAUtils {
      * @param keyMap        密钥Map
      * @return              key 私钥
      */
-    public static Key getPrivateKey(Map<String, Key> keyMap) {
-        return keyMap.get(RSA_PRIVATE_KEY);
+    public static String getPrivateKey(Map<String, Key> keyMap) {
+        return Hex.toHexString(getPrivateKeyByte(keyMap)).toUpperCase();
     }
 
     /**
