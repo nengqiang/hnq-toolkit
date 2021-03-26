@@ -9,6 +9,7 @@ import java.util.function.Supplier;
  * @author henengqiang
  * @date 2021/01/20
  * @see <a href="https://mp.weixin.qq.com/s/In8vi2N3C4J2hS2pmP-mfg">原文地址</a>
+ * @since Jdk8
  */
 public class Builder<T> {
 

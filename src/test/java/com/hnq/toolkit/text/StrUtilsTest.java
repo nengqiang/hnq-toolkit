@@ -26,4 +26,13 @@ class StrUtilsTest {
 
     }
 
+    @Test
+    void testFormat() {
+        String template = "八大基本数据类型示例：\nString: {}, int: {}, short:{}, double: {}, long: {}, float: {}, char: {}, boolean: {}";
+        String res = StrUtils.format(template, "String", Short.valueOf("1"), 1000, 1000D, 1000L, 1000F, 'c', true);
+        System.out.println(res);
+        // 八大基本数据类型示例：
+        // String: String, int: 1, short:1000, double: 1000.0, long: 1000, float: 1000.0, char: c, boolean: true
+    }
+
 }

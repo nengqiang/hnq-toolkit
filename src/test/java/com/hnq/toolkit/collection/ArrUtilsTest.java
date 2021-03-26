@@ -5,12 +5,12 @@ import lombok.Data;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.hnq.toolkit.collection.ArrUtils;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static com.hnq.toolkit.collection.SortUtils.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author henengqiang
@@ -52,6 +52,55 @@ class ArrUtilsTest {
         private String name;
         private Integer age;
         private String address;
+    }
+
+    @Test
+    void selectSortTest() {
+        int[] arr = ArrUtils.generateArray(10, 20);
+        selectSort(arr, true);
+        System.out.println(Arrays.toString(arr));
+        System.out.println("Min=" + selectMaximumValue(arr, true));
+    }
+
+    @Test
+    void bubbleSortTest() {
+        int[] arr = ArrUtils.genNotRepeatingArr(10, 20);
+        bubbleSort(arr, false);
+        System.out.println(Arrays.toString(arr));
+        System.out.println("Max=" + selectMaximumValue(arr, false));
+    }
+
+    @Test
+    void insertionSortTest() {
+        int[] arr = ArrUtils.generateArray(10, 20);
+        insertionSort(arr, false);
+        System.out.println(Arrays.toString(arr));
+        System.out.println("Min=" + selectMaximumValue(arr, true));
+    }
+
+    @Test
+    void mergingSortTest() {
+        int[] arr = ArrUtils.generateArray(10, 20);
+        System.out.println("original: " + Arrays.toString(arr));
+        mergingSort(arr, 0, arr.length / 2 - 1);
+        System.out.println(Arrays.toString(arr));
+        mergingSort(arr, 0, arr.length - 1);
+        System.out.println(Arrays.toString(arr));
+
+        int[] arr2 = ArrUtils.genNotRepeatingArr(10, 20);
+        System.out.println("original: " + Arrays.toString(arr2));
+        mergingSort(arr2, 0, arr2.length - 1);
+        System.out.println(Arrays.toString(arr2));
+    }
+
+    @Test
+    void quickSortTest() {
+        int[] arr = ArrUtils.generateArray(10, 20);
+        quickSort(arr, true);
+        System.out.println(Arrays.toString(arr));
+        arr = ArrUtils.genNotRepeatingArr(10, 20);
+        quickSort(arr, false);
+        System.out.println(Arrays.toString(arr));
     }
 
 }
