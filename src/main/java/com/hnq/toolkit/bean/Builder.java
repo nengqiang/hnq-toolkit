@@ -6,6 +6,9 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
+ * MapBuilder see com.google.common.collect.ImmutableMap<K, V>.builder().put().build()
+ * ListBuilder see com.google.common.collect.ImmutableList<T>.builder().add().build()
+ *
  * @author henengqiang
  * @date 2021/01/20
  * @see <a href="https://mp.weixin.qq.com/s/In8vi2N3C4J2hS2pmP-mfg">原文地址</a>

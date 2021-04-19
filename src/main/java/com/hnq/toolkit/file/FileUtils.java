@@ -1,24 +1,20 @@
 package com.hnq.toolkit.file;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+
+import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
-import org.apache.commons.io.IOUtils;
-
-import lombok.extern.slf4j.Slf4j;
+import java.util.stream.Collectors;
 
 /**
  * @author henengqiang
@@ -35,7 +31,7 @@ public class FileUtils {
      * 【注意这个方法获取到的资源文件路径是在target目录下】
      */
     public static String getResourceFilePath(Class<?> clazz, String fileName) {
-        return clazz.getResource("/" + fileName).getPath();
+        return Objects.requireNonNull(clazz.getResource("/" + fileName)).getPath();
     }
 
     /**
@@ -104,81 +100,43 @@ public class FileUtils {
     }
 
     /**
-     * 把对象写入文件
-     * 不知道怎么加编码 后面再更新
-     */
-    public static void writeObjectToFile(File file, Object obj) {
-        try (FileOutputStream fos = new FileOutputStream(file)) {
-            try (ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-                oos.writeObject(obj);
-            }
-        } catch (IOException e) {
-            log.error("error:", e);
-        }
-    }
-
-    /**
-     * 读取文件内容为对象
-     *
-     * @param file 文件路径及其名称
-     * @return     报异常时返回null
-     * @see         org.apache.commons.io.FileUtils#readFileToByteArray(File)
-     */
-    public static Object readFileToObject(File file) {
-        try (FileInputStream fis = new FileInputStream(file);
-             ObjectInputStream ois = new ObjectInputStream(fis)) {
-            return ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            log.error("error:", e);
-        }
-        return null;
-    }
-
-    /**
      * 计算文件行数(多为内容以行为单位的文件)
      *
      * @param filePath      file path and itself
      * @throws IOException  throws {@link IOException}
+     * @see <a href="https://blog.csdn.net/liuxiao723846/article/details/93604614">JAVA快速统计大文本文件行数</a>
      */
-    public static Long countFileRows(String filePath) throws IOException {
-        FileReader read = new FileReader(filePath);
-        long rowNum;
-        try (BufferedReader br = new BufferedReader(read)) {
-            rowNum = 1L;
-            while ((br.readLine()) != null) {
-                rowNum++;
-            }
-        }
-        return rowNum;
+    public static Long lines(String filePath) throws IOException {
+        Path path = Paths.get(new File(filePath).getPath());
+        return Files.lines(path).count();
     }
 
     /**
      * 读取文件指定多少行(多为内容以行为单位的文件)
      *
-     * @param filePath      文件路径
-     * @param startLine     开始行数
-     * @param endLine       结束行数
-     * @return              返回读取的文件内容
-     * @throws IOException  throws {@link IOException}
-     * @see                 org.apache.commons.io.FileUtils#readLines(File, Charset)
+     * @param filePath          文件路径
+     * @param startIncluded     开始行数，包含
+     * @param endExcluded       结束行数，不包含
+     * @return                  返回读取的文件内容为List
+     * @throws IOException      throws {@link IOException}
      */
-    public static String readFileOfLines(String filePath, int startLine, int endLine) throws IOException {
-        FileReader read = new FileReader(filePath);
-        StringBuilder sb;
-        try (BufferedReader br = new BufferedReader(read)) {
-            sb = new StringBuilder();
-            long rowNum = 1L;
-            String a;
-            while ((a = br.readLine()) != null) {
-                if (rowNum++ >= startLine) {
-                    sb.append(a).append("\n");
-                }
-                if (rowNum > endLine) {
-                    break;
-                }
-            }
+    private static List<String> readLinesSpecified(String filePath, long startIncluded, long endExcluded) throws IOException {
+        if (StringUtils.isBlank(filePath)) {
+            throw new IllegalArgumentException("filePath must be not blank.");
         }
-        return sb.toString();
+        if (startIncluded <= 0) {
+            throw new IllegalArgumentException("startIncluded must be greater than 0.");
+        }
+        if (startIncluded >= endExcluded) {
+            throw new IllegalArgumentException("startIncluded must be smaller than endExcluded.");
+        }
+        try (BufferedReader br = Files.newBufferedReader(
+                Paths.get(new File(filePath).getPath()), StandardCharsets.UTF_8)) {
+            return br.lines()
+                    .skip(startIncluded - 1)
+                    .limit(endExcluded - startIncluded)
+                    .collect(Collectors.toList());
+        }
     }
 
     /**

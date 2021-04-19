@@ -14,9 +14,7 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.hnq.toolkit.file.FileUtils;
-
-import static com.hnq.toolkit.file.FileUtils.countFileRows;
+import static com.hnq.toolkit.file.FileUtils.lines;
 import static com.hnq.toolkit.file.FileUtils.getResourceFilePath;
 import static com.hnq.toolkit.file.FileUtils.getResourceFileStream;
 import static com.hnq.toolkit.file.FileUtils.listAllFileNames;
@@ -36,19 +34,8 @@ class FileUtilsTest {
     @Test
     void countFileRowsTest() {
         try {
-            Long rows = countFileRows(FILE_PATH);
+            Long rows = lines(FILE_PATH);
             System.out.println(rows);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    void readFileOfLinesTest() {
-        try {
-            String data = FileUtils.readFileOfLines(FILE_PATH, 2, 100);
-            System.out.println(data);
-            System.out.println(data.replaceAll("\n", ""));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,7 +53,7 @@ class FileUtilsTest {
         InputStream actualIn1 = getResourceFileStream("res.html");
         InputStream actualIn2 = null;
         try {
-            actualIn2 = new FileInputStream(new File(getResourceFilePath("res.html")));
+            actualIn2 = new FileInputStream(getResourceFilePath("res.html"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
