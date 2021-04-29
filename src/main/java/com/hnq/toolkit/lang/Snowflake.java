@@ -1,5 +1,6 @@
 package com.hnq.toolkit.lang;
 
+import com.google.common.base.Preconditions;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -109,9 +110,8 @@ public class Snowflake {
      * @param workerId work process id
      */
     public static void setWorkerId(final long workerId) {
-        if (workerId < 0L || workerId >= WORKER_ID_MAX_VALUE) {
-            throw new IllegalArgumentException();
-        }
+        Preconditions.checkArgument(workerId >= 0L && workerId < WORKER_ID_MAX_VALUE,
+                "workId must to be greater or equal to zero, and smaller than %s.", WORKER_ID_MAX_VALUE);
         Snowflake.workerId = workerId;
     }
 

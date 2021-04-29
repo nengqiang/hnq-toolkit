@@ -32,6 +32,7 @@ public class MathUtils {
 
     /**
      * 十进制转其他进制
+     *
      * @param num   十进制数
      * @param radix 其他进制
      * @return      其他进制数

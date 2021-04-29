@@ -16,10 +16,12 @@ import java.util.List;
  * 2.Duration
  * 3.ChronoUnit
  * @see <a href="https://www.jianshu.com/p/8a6c3c07d7d0">Java8时间差API<a/>
+ * Deprecated. Use apache commons java api date utils instead. The method here is for reference only!
  *
  * @author henengqiang
  * @date 2018/10/9
  */
+@Deprecated
 public class DateUtils {
 
     private DateUtils() {}

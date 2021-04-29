@@ -20,6 +20,7 @@ import java.util.function.Function;
  * @date 2019/07/01
  */
 @Slf4j
+@SuppressWarnings("rawtypes")
 public class KryoUtils {
 
     private KryoUtils() {

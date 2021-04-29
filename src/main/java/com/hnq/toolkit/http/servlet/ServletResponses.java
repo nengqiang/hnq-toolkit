@@ -1,6 +1,6 @@
 package com.hnq.toolkit.http.servlet;
 
-import com.hnq.toolkit.lang.Preconditions;
+import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Nonnull;
@@ -37,8 +37,10 @@ public class ServletResponses {
      */
     public static void writeResponse(@Nonnull final HttpServletResponse response, final int status,
                                      @Nonnull final String contentType, @Nullable final String charset, String responseBody) {
-        Preconditions.notNull("response", response);
-        Preconditions.notNull("contentType", contentType);
+        Preconditions.checkNotNull(response,
+                "Parameter named '%s' must not be null", "response");
+        Preconditions.checkNotNull(contentType,
+                "Parameter named '%s' must not be null", "contentType");
         try {
             response.setStatus(status);
             response.setContentType(contentType);

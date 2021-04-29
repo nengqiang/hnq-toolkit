@@ -1,5 +1,7 @@
 package com.hnq.toolkit.codec;
 
+import com.google.common.base.Preconditions;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -25,9 +27,9 @@ public class AESUtils {
      * @throws Exception    many exceptions
      */
     public static String encrypt(String src, String key) throws Exception {
-        if (key == null || key.length() != STANDARD_KEY_LENGTH) {
-            throw new IllegalArgumentException("key does not meet the conditions");
-        }
+        Preconditions.checkNotNull(key);
+        Preconditions.checkArgument(key.length() == STANDARD_KEY_LENGTH,
+                "key's length not equal to %s", STANDARD_KEY_LENGTH);
         byte[] raw = key.getBytes();
         SecretKeySpec keySpec = new SecretKeySpec(raw, KEY_AES);
         Cipher cipher = Cipher.getInstance(KEY_AES);
@@ -45,9 +47,9 @@ public class AESUtils {
      * @throws Exception    many exceptions
      */
     public static String decrypt(String src, String key) throws Exception {
-        if (key == null || key.length() != STANDARD_KEY_LENGTH) {
-            throw new IllegalArgumentException("key does not meet the conditions");
-        }
+        Preconditions.checkNotNull(key);
+        Preconditions.checkArgument(key.length() == STANDARD_KEY_LENGTH,
+                "key's length not equal to %s", STANDARD_KEY_LENGTH);
         byte[] raw = key.getBytes();
         SecretKeySpec keySpec = new SecretKeySpec(raw, KEY_AES);
         Cipher cipher = Cipher.getInstance(KEY_AES);

@@ -1,5 +1,6 @@
 package com.hnq.toolkit.file;
 
+import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -120,16 +121,13 @@ public class FileUtils {
      * @return                  返回读取的文件内容为List
      * @throws IOException      throws {@link IOException}
      */
-    private static List<String> readLinesSpecified(String filePath, long startIncluded, long endExcluded) throws IOException {
-        if (StringUtils.isBlank(filePath)) {
-            throw new IllegalArgumentException("filePath must be not blank.");
-        }
-        if (startIncluded <= 0) {
-            throw new IllegalArgumentException("startIncluded must be greater than 0.");
-        }
-        if (startIncluded >= endExcluded) {
-            throw new IllegalArgumentException("startIncluded must be smaller than endExcluded.");
-        }
+    public static List<String> readLinesSpecified(String filePath, long startIncluded, long endExcluded) throws IOException {
+        Preconditions.checkArgument(StringUtils.isNotBlank(filePath),
+                "filePath must be not blank.");
+        Preconditions.checkArgument(startIncluded > 0,
+                "startIncluded must be greater than 0.");
+        Preconditions.checkArgument(startIncluded < endExcluded,
+                "startIncluded must be smaller than endExcluded.");
         try (BufferedReader br = Files.newBufferedReader(
                 Paths.get(new File(filePath).getPath()), StandardCharsets.UTF_8)) {
             return br.lines()

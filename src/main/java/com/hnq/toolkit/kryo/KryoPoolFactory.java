@@ -11,6 +11,7 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
  * @author henengqiang
  * @date 2019/07/01
  */
+@SuppressWarnings("rawtypes")
 public class KryoPoolFactory {
 
     private static final GenericObjectPool<Kryo> OBJECT_POOL;
