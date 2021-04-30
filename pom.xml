@@ -21,7 +21,7 @@
         <commons-pool2.version>2.8.0</commons-pool2.version>
         <commons-collections.version>3.2.2</commons-collections.version>
         <commons-codec.version>1.13</commons-codec.version>
-        <bouncycastle.version>1.65</bouncycastle.version>
+        <bouncycastle.version>1.67</bouncycastle.version>
         <spring-expression.version>5.2.6.RELEASE</spring-expression.version>
         <spring-beans.version>5.2.6.RELEASE</spring-beans.version>
         <spring-web.version>5.2.6.RELEASE</spring-web.version>
