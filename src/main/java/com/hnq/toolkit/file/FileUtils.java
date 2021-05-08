@@ -24,7 +24,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class FileUtils {
     
-    private FileUtils() {}
+    private FileUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * 获取的文件全路径形为：

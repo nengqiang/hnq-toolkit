@@ -6,7 +6,9 @@ package com.hnq.toolkit.consts;
  */
 public final class CharConsts {
 
-    private CharConsts() {}
+    private CharConsts() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static final char LOWER_A = 'a';
 

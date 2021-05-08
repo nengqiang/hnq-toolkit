@@ -12,7 +12,9 @@ import javax.crypto.spec.SecretKeySpec;
 @SuppressWarnings("AlibabaClassNamingShouldBeCamel")
 public class AESUtils {
 
-    private AESUtils() {}
+    private AESUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     private static final String KEY_AES = "AES";
 

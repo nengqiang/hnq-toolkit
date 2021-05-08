@@ -14,7 +14,9 @@ import java.util.Map;
  */
 public final class BannerConsts {
 
-    private BannerConsts() {}
+    private BannerConsts() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * 控制台输出字符串颜色前后缀

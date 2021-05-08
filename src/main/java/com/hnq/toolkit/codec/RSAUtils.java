@@ -24,7 +24,9 @@ import java.util.UUID;
 @SuppressWarnings("AlibabaClassNamingShouldBeCamel")
 public class RSAUtils {
 
-    private RSAUtils() {}
+    private RSAUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * 非对称加密算法

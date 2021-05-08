@@ -15,7 +15,9 @@ import java.util.stream.Stream;
  */
 public class SortUtils {
 
-    private SortUtils() {}
+    private SortUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     // Arrays 自带sort()方法，我为什么还要在这里写
 

@@ -9,7 +9,9 @@ import org.apache.commons.codec.digest.DigestUtils;
 @SuppressWarnings("AlibabaClassNamingShouldBeCamel")
 public class MD5Utils {
 
-    private MD5Utils() {}
+    private MD5Utils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * md5加密

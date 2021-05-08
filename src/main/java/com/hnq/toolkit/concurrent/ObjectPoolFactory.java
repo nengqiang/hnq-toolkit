@@ -17,6 +17,7 @@ import javax.annotation.Nonnull;
 public class ObjectPoolFactory {
 
     private ObjectPoolFactory() {
+        throw new IllegalStateException("Utility class");
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})

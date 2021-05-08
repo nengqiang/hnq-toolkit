@@ -11,7 +11,9 @@ import java.util.regex.Pattern;
  */
 public class UnicodeUtils {
 
-    private UnicodeUtils() {}
+    private UnicodeUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * unicode 转字符串

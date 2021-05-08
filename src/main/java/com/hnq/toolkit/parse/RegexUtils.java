@@ -24,7 +24,9 @@ public class RegexUtils {
 
     private static GuavaCache<String, Pattern> cache = GuavaCache.getInstance(10, TimeUnit.MINUTES, 100);
 
-    private RegexUtils() {}
+    private RegexUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static Pattern compile(@Nonnull String regex) {
         return compile(regex, 0);

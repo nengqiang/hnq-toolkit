@@ -6,7 +6,9 @@ package com.hnq.toolkit.math;
  */
 public class MathUtils {
 
-    private MathUtils() {}
+    private MathUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * 高效率的幂运算

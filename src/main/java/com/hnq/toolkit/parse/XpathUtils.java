@@ -30,7 +30,9 @@ import java.util.List;
 @Slf4j
 public class XpathUtils {
 
-    private XpathUtils() {}
+    private XpathUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     private static final String TEXT_SIGN = "/text(";
 

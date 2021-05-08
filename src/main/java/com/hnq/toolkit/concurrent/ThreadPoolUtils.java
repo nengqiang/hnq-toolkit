@@ -10,7 +10,9 @@ import java.util.concurrent.*;
  */
 public class ThreadPoolUtils {
 
-    private ThreadPoolUtils() {}
+    private ThreadPoolUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * 根据cpu的数量动态的配置核心线程数和最大线程数

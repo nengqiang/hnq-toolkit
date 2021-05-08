@@ -23,7 +23,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class BeanUtils {
 
-    private BeanUtils() {}
+    private BeanUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     private static final Map<String, BeanCopier> BEAN_COPIER_MAP = new ConcurrentHashMap<>();
 

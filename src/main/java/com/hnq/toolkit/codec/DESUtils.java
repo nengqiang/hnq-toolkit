@@ -17,7 +17,9 @@ import java.security.*;
 @SuppressWarnings("AlibabaClassNamingShouldBeCamel")
 public class DESUtils {
 
-    private DESUtils() {}
+    private DESUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * 密钥算法

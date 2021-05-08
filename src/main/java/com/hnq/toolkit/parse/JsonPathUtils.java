@@ -14,7 +14,9 @@ import java.util.stream.Collectors;
  */
 public class JsonPathUtils {
 
-    private JsonPathUtils() {}
+    private JsonPathUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static Object read(String json, String jsonPath) {
         if (StringUtils.isEmpty(json) || StringUtils.isEmpty(jsonPath)) {

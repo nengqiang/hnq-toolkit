@@ -19,6 +19,7 @@ public class IpUtils {
     private static final Pattern IP_PATTERN = Pattern.compile("(\\d{1,3}\\.){3}\\d{1,3}");
 
     private IpUtils() {
+        throw new IllegalStateException("Utility class");
     }
 
     public static boolean isIp(@Nonnull final String ip) {

@@ -14,7 +14,9 @@ import java.util.regex.Pattern;
 @Slf4j
 public class StrUtils {
 
-    private StrUtils() {}
+    private StrUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     private static final Pattern PATTERN = Pattern.compile("\\{}");
 

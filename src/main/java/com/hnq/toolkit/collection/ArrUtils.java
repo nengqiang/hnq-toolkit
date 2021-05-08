@@ -16,7 +16,9 @@ import java.util.stream.Stream;
  */
 public class ArrUtils {
 
-    private ArrUtils() {}
+    private ArrUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * 根据对象属性对list去重

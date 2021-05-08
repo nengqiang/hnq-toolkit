@@ -8,7 +8,9 @@ import org.apache.commons.codec.binary.Base64;
  */
 public class Base64Utils {
 
-    private Base64Utils() {}
+    private Base64Utils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * base64编码，默认UTF-8

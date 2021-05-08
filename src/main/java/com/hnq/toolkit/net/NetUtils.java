@@ -37,6 +37,7 @@ public class NetUtils {
     private static volatile InetAddress LOCAL_ADDRESS = null;
 
     private NetUtils() {
+        throw new IllegalStateException("Utility class");
     }
 
     public static int getRandomPort() {

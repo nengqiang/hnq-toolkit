@@ -25,6 +25,7 @@ public class HttpService {
     private static final MoreHttp HTTP_CLIENT = MoreHttpFactory.createCustom();
 
     private HttpService() {
+        throw new IllegalStateException("Utility class");
     }
 
     public static MoreHttp defaultHttpClient() {

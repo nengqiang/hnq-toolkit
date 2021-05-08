@@ -11,7 +11,9 @@ import java.util.regex.Pattern;
  */
 public final class RegularConsts {
 
-    private RegularConsts() {}
+    private RegularConsts() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * 验证用户名和密码：（"^[a-zA-Z]\w{5,15}$"）正确格式："[A-Z][a-z]_[0-9]"组成,并且第一个字必须为字母6~16位

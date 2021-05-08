@@ -24,6 +24,7 @@ import java.util.function.Function;
 public class KryoUtils {
 
     private KryoUtils() {
+        throw new IllegalStateException("Utility class");
     }
 
     /**

@@ -19,7 +19,9 @@ public class SpelExpParser {
 
     private static final ExpressionParser PARSER = new SpelExpressionParser();
 
-    private SpelExpParser() {}
+    private SpelExpParser() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static <T> T parse(String expression, Class<T> clazz) {
         return PARSER.parseExpression(expression).getValue(clazz);

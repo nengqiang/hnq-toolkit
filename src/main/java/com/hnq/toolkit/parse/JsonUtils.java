@@ -15,7 +15,9 @@ import java.nio.charset.StandardCharsets;
  */
 public class JsonUtils {
 
-    private JsonUtils() {}
+    private JsonUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * 将一份jsonList文件拆分为多份jsonList文件
