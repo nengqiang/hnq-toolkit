@@ -233,9 +233,9 @@ public class SortUtils {
      *
      * @param nums     选择对象
      * @param smallest true：选出最小值，false：选出最大值
-     * @return 给定数组中的最值
+     * @return         给定数组中的最值
      */
-    public static int selectMaximumValue(int[] nums, boolean smallest) {
+    public static int selectMaximum(int[] nums, boolean smallest) {
         int maxValue = nums[0];
         int minValue = nums[0];
         for (int i = 1; i < nums.length; i++) {
@@ -262,12 +262,13 @@ public class SortUtils {
 
     /**
      * 对Map按key进行排序
-     * 推荐使用 {@link SortUtils#sortMapByKey(Map, boolean)}
+     * 推荐使用 {@link SortUtils#sortByKey(Map, boolean)}
+     *
      * @param map   等待排序的map
      * @param isAsc true: 升序，false: 降序
      * @return      排序后的map
      */
-    public static Map<String, String> sortMapByStrKey(Map<String, String> map, boolean isAsc) {
+    public static Map<String, String> sortByKeyUsingTree(Map<String, String> map, boolean isAsc) {
         if (MapUtils.isEmpty(map)) {
             // 这样调用方法的地方就不用担心空指针了
             return Maps.newHashMap();
@@ -295,7 +296,7 @@ public class SortUtils {
 
     /**
      * 使Map按value排序（升序）
-     * 推荐使用 {@link SortUtils#sortMapByValue(Map, boolean)}
+     * 推荐使用 {@link SortUtils#sortByValue(Map, boolean)}
      */
     public static <K, V extends Comparable<? super V>> Map<K, V> sortByValueAsc(Map<K, V> map) {
         if (MapUtils.isEmpty(map)) {
@@ -311,7 +312,7 @@ public class SortUtils {
 
     /**
      * 使Map按value排序（降序）
-     * 推荐使用 {@link SortUtils#sortMapByValue(Map, boolean)}
+     * 推荐使用 {@link SortUtils#sortByValue(Map, boolean)}
      */
     public static <K, V extends Comparable<? super V>> Map<K, V> sortByValueDesc(Map<K, V> map) {
         List<Map.Entry<K, V>> list = new LinkedList<>(map.entrySet());
@@ -343,7 +344,7 @@ public class SortUtils {
      * @param <V> value的类型
      * @return    排序后的map 是一个LinkedHashMap
      */
-    public static <K extends Comparable<? super K>, V> Map<K, V> sortMapByKey(Map<K, V> map, boolean asc) {
+    public static <K extends Comparable<? super K>, V> Map<K, V> sortByKey(Map<K, V> map, boolean asc) {
         if (asc) {
             return map.entrySet().stream().sorted(Map.Entry.comparingByKey())
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> b, Maps::newLinkedHashMap));
@@ -371,7 +372,7 @@ public class SortUtils {
      * @param <V> value的类型
      * @return    排序后的map 是一个LinkedHashMap
      */
-    public static <K, V extends Comparable<? super V>> Map<K, V> sortMapByValue(Map<K, V> map, boolean asc) {
+    public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map, boolean asc) {
         if (asc) {
             return map.entrySet().stream().sorted(Map.Entry.comparingByValue())
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> b, Maps::newLinkedHashMap));

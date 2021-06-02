@@ -19,7 +19,7 @@ public class UnicodeUtils {
      * unicode 转字符串
      * @param unicode 全为 Unicode 的字符串
      */
-    public static String unicodeToString(String unicode) {
+    public static String toString(String unicode) {
         if (StringUtils.isEmpty(unicode)) {
             return StringUtils.EMPTY;
         }
@@ -40,7 +40,7 @@ public class UnicodeUtils {
      * 含有unicode 的字符串转一般字符串
      * @param unicodeStr 混有 Unicode 的字符串
      */
-    public static String unicodeStrToString(String unicodeStr) {
+    public static String mixedToString(String unicodeStr) {
         if (StringUtils.isEmpty(unicodeStr)) {
             return StringUtils.EMPTY;
         }
@@ -56,7 +56,7 @@ public class UnicodeUtils {
             // 原本的Unicode字符
             String oldChar = matcher.group();
             // 转换为普通字符
-            String newChar = unicodeToString(oldChar);
+            String newChar = toString(oldChar);
             // 在遇见重复出现的unicode代码的时候会造成从源字符串获取非unicode编码字符的时候截取索引越界等
             int index = matcher.start();
 
@@ -75,7 +75,7 @@ public class UnicodeUtils {
     /**
      * 字符串转换unicode
      */
-    public static String stringToUnicode(String string) {
+    public static String toUnicode(String string) {
         if (StringUtils.isEmpty(string)) {
             return StringUtils.EMPTY;
         }

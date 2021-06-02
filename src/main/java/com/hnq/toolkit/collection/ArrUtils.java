@@ -29,8 +29,8 @@ public class ArrUtils {
      * @param <T>           对象泛型
      * @return              去重后的list
      */
-    public static <T> List<T> distinctByKey(List<T> list, Function<? super T, Object> keyExtractor) {
-        return list.stream().filter(distinctByKey(keyExtractor)).collect(Collectors.toList());
+    public static <T> List<T> distinct(List<T> list, Function<? super T, Object> keyExtractor) {
+        return list.stream().filter(distinct(keyExtractor)).collect(Collectors.toList());
     }
 
     /**
@@ -40,7 +40,7 @@ public class ArrUtils {
      * @param <T>           对象泛型
      * @return              see {@link Stream#filter(java.util.function.Predicate)}
      */
-    public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
+    public static <T> Predicate<T> distinct(Function<? super T, Object> keyExtractor) {
         Map<Object, Boolean> map = new ConcurrentHashMap<>(16);
         return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
@@ -56,7 +56,7 @@ public class ArrUtils {
      * @param bound 数组值边界
      * @return      数组
      */
-    public static int[] generateArray(int size, int bound) {
+    public static int[] generate(int size, int bound) {
         return IntStream.range(0, size).map(i -> R.nextInt(bound)).toArray();
     }
 
@@ -67,7 +67,7 @@ public class ArrUtils {
      * @param bound 数组值边界
      * @return      数组
      */
-    public static int[] genNotRepeatingArr(int size, int bound) {
+    public static int[] generateWithoutRepeat(int size, int bound) {
         int[] nums = new int[size];
         int j = 0;
         for (int i = 0; i < size; i++) {
@@ -91,7 +91,7 @@ public class ArrUtils {
      * @param max   数组元素值最大值
      * @return      数组
      */
-    public static int[] generateArrayBetween(int size, int min, int max) {
+    public static int[] generate(int size, int min, int max) {
         return IntStream.range(0, size).map(i -> min + R.nextInt(Math.abs(max - min))).toArray();
     }
 
@@ -102,7 +102,7 @@ public class ArrUtils {
      * @param max   数组元素值最大值
      * @return      数组
      */
-    public static int[] genNotRepeatingArrBetween(int size, int min, int max) {
+    public static int[] generateWithoutRepeat(int size, int min, int max) {
         int[] nums = new int[size];
         int diff = Math.abs(max - min);
         int j = 0;

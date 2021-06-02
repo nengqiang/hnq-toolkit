@@ -61,10 +61,10 @@ class SortUtilsTest {
         map1.put("alice", "1");
         map1.put("dandy", "7");
         map1.put("candy", "5");
-        Map result = sortMapByStrKey(map1, true);
+        Map result = sortByKeyUsingTree(map1, true);
         Assertions.assertEquals("{alice=1, bob=3, candy=5, dandy=7}", result.toString());
 
-        result = sortMapByKey(map1, false);
+        result = sortByKey(map1, false);
         Assertions.assertEquals("{dandy=7, candy=5, bob=3, alice=1}", result.toString());
 
         Map<Integer, Integer> map2 = Maps.newHashMap();
@@ -72,7 +72,7 @@ class SortUtilsTest {
         map2.put(10, 10);
         map2.put(1, 1);
         map2.put(25, 25);
-        result = sortMapByKey(map2, true);
+        result = sortByKey(map2, true);
         Assertions.assertEquals("{1=1, 3=3, 10=10, 25=25}", result.toString());
     }
 
@@ -83,7 +83,7 @@ class SortUtilsTest {
         map1.put("2", "alice");
         map1.put("3", "dandy");
         map1.put("4", "candy");
-        Map result = sortMapByValue(map1, true);
+        Map result = sortByValue(map1, true);
         Assertions.assertEquals("{2=alice, 1=bob, 4=candy, 3=dandy}", result.toString());
 
         Map<String, Integer> map2 = Maps.newHashMap();
@@ -91,7 +91,7 @@ class SortUtilsTest {
         map2.put("5", 5);
         map2.put("4", 4);
         map2.put("3", 3);
-        result = sortMapByValue(map2, false);
+        result = sortByValue(map2, false);
         Assertions.assertEquals("{5=5, 4=4, 3=3, 1=1}", result.toString());
 
     }
