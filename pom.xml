@@ -29,7 +29,7 @@
         <javacsv.version>2.0</javacsv.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
         <jackson-dataformat-csv.version>2.9.7</jackson-dataformat-csv.version>
-        <httpclient.version>4.5.10</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
         <httpmime.version>4.5.10</httpmime.version>
         <kryo.version>5.0.0-RC5</kryo.version>
         <htmlcleaner.version>2.24</htmlcleaner.version>
