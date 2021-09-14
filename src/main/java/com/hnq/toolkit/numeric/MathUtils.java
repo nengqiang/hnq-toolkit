@@ -1,4 +1,4 @@
-package com.hnq.toolkit.math;
+package com.hnq.toolkit.numeric;
 
 /**
  * @author henengqiang
