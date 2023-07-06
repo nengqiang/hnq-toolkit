@@ -1,6 +1,7 @@
 package com.hnq.toolkit.text;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.Validate;
 
 import java.util.List;
@@ -27,6 +28,9 @@ public final class SqlUtils {
     public static <T> String buildApplyInSql(List<T> paramIn, String columnName) {
         Validate.notEmpty(paramIn, "入参列表[paramIn]不能为空！");
         Validate.notBlank(columnName, "字段列名[columnName]不能为空！");
+        // if (CollectionUtils.isEmpty(paramIn)) {
+        //     return columnName + " IN ''";
+        // }
 
         List<List<T>> param = Lists.partition(paramIn, ORACLE_MAX_IN_SIZE);
         StringJoiner sql = new StringJoiner(
