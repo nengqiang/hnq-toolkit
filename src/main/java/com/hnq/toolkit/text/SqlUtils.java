@@ -28,6 +28,7 @@ public final class SqlUtils {
     public static <T> String buildApplyInSql(List<T> paramIn, String columnName) {
         Validate.notEmpty(paramIn, "入参列表[paramIn]不能为空！");
         Validate.notBlank(columnName, "字段列名[columnName]不能为空！");
+        paramIn = paramIn.stream().filter(Objects::nonNull).collect(Collectors.toList());
         // if (CollectionUtils.isEmpty(paramIn)) {
         //     return columnName + " IN ''";
         // }
