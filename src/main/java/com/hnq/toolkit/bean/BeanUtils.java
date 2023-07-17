@@ -17,6 +17,8 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 说明：未适配@Accessor(chain=true)注解导致的拷贝失败问题
+ *
  * @author henengqiang
  * @date 2019/04/23
  */
